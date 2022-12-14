@@ -18,11 +18,11 @@ class TweetController extends Controller
         try {
             $rules = [
                 'user_id' => 'required',
-                'tweet' => 'required',
+                'description' => 'required',
             ];
             $messages = [
                 'user_id.required' => 'User ID is required',
-                'tweet.required' => 'Tweet is required',
+                'description.required' => 'Tweet is required',
             ];
             $this->validate(request(), $rules, $messages);
             $tweet =Tweet::create(request()->all());
@@ -36,11 +36,11 @@ class TweetController extends Controller
         try {
             $rules = [
                 'user_id' => 'required',
-                'tweet' => 'required',
+                'description' => 'required',
             ];
             $messages = [
                 'user_id.required' => 'User ID is required',
-                'tweet.required' => 'Tweet is required',
+                'description.required' => 'Tweet is required',
             ];
             $this->validate(request(), $rules, $messages);
             $tweet = Tweet::find($id);

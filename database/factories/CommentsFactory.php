@@ -23,8 +23,7 @@ class CommentsFactory extends Factory
             //
             'description' => fake()->text(),
             'user_id' => User::all()->random()->id,
-            'tweets' => Tweet::all()->random()->id
-          
+            'tweets_id' => Tweet::all()->random()->id
         ];
     }
 }

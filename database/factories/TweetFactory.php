@@ -20,7 +20,7 @@ class TweetFactory extends Factory
         return [
             //
             'description' => fake()->text(),
-            'user_id' => User::all()->randm()->id,
+            'user_id' => User::all()->random()->id,
         ];
     }
 }

@@ -11,6 +11,8 @@ class Comments extends Model
 
     protected $fillable = [
         'description',
+        'user_id',
+        'tweets_id',
     ];
 
     public function user(){

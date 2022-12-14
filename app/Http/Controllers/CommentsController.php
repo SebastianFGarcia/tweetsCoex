@@ -18,13 +18,13 @@ class CommentsController extends Controller
         try {
             $rules = [
                 'user_id' => 'required',
-                'tweet_id' => 'required',
-                'comment' => 'required',
+                'tweets_id' => 'required',
+                'description' => 'required',
             ];
             $messages = [
                 'user_id.required' => 'User ID is required',
-                'tweet_id.required' => 'Tweet ID is required',
-                'comment.required' => 'Comment is required',
+                'tweets_id.required' => 'Tweet ID is required',
+                'description.required' => 'Comment is required',
             ];
             $this->validate(request(), $rules, $messages);
             $comment = Comments::create(request()->all());
@@ -38,13 +38,13 @@ class CommentsController extends Controller
         try {
             $rules = [
                 'user_id' => 'required',
-                'tweet_id' => 'required',
-                'comment' => 'required',
+                'tweets_id' => 'required',
+                'description' => 'required',
             ];
             $messages = [
                 'user_id.required' => 'User ID is required',
-                'tweet_id.required' => 'Tweet ID is required',
-                'comment.required' => 'Comment is required',
+                'tweets_id.required' => 'Tweet ID is required',
+                'description.required' => 'Comment is required',
             ];
             $this->validate(request(), $rules, $messages);
             $comment = Comments::find($id);
