@@ -16,13 +16,9 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('description')
-             $table->unsignedBigInteger('user_id');
-            foreign('user_id')->references('id')->on('users');
-            $table->timestamps();
-             $table->unsignedBigInteger('tweets_id');
-            foreign('tweets_id')->references('id')->on('tweets');
-            $table->timestamps();
+            $table->string('description');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('tweets_id')->constrained('tweets');
         });
     }
 
