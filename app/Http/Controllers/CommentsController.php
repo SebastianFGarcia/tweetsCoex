@@ -17,17 +17,19 @@ class CommentsController extends Controller
     {
         try {
             $rules = [
-                'user_id' => 'required',
                 'tweets_id' => 'required',
                 'description' => 'required',
             ];
             $messages = [
-                'user_id.required' => 'User ID is required',
                 'tweets_id.required' => 'Tweet ID is required',
                 'description.required' => 'Comment is required',
             ];
             $this->validate(request(), $rules, $messages);
-            $comment = Comments::create(request()->all());
+            $comment = Comments::create([
+                'user_id' => auth()->user()->id,
+                'tweets_id' => request()->tweets_id,
+                'description' => request()->description,
+            ]);
             return response()->json($comment);
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
@@ -35,20 +37,27 @@ class CommentsController extends Controller
     }
 
     public function update($id){
+        $comment = Comments::find($id);
+
+        if($comment->user_id != auth()->user()->id){
+            return response()->json('You are not authorized to update this comment');
+        }
+
         try {
             $rules = [
-                'user_id' => 'required',
                 'tweets_id' => 'required',
                 'description' => 'required',
             ];
             $messages = [
-                'user_id.required' => 'User ID is required',
                 'tweets_id.required' => 'Tweet ID is required',
                 'description.required' => 'Comment is required',
             ];
             $this->validate(request(), $rules, $messages);
-            $comment = Comments::find($id);
-            $comment->update(request()->all());
+            $comment->update([
+                'user_id' => auth()->user()->id,
+                'tweets_id' => request()->tweets_id,
+                'description' => request()->description,
+            ]);
             return response()->json($comment);
         } catch (\Exception $e) {
             return response()->json($e->getMessage());
@@ -56,8 +65,12 @@ class CommentsController extends Controller
     }
 
     public function delete($id){
+        $comment = Comments::find($id);
+
+        if($comment->user_id != auth()->user()->id){
+            return response()->json('You are not authorized to delete this comment');
+        }
         try {
-            $comment = Comments::find($id);
             $comment->delete();
             return response()->json($comment);
         } catch (\Exception $e) {

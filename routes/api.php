@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,18 +17,32 @@ use App\Http\Controllers\CommentsController;
 |
 */
 
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
+
+});
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(TweetController::class)->prefix('tweets')->group(function () {
+Route::controller(TweetController::class)->prefix('tweets')->middleware('auth:api')->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'create');
+    Route::get('/{id}', 'show');
     Route::put('/{id}', 'update');
     Route::delete('/{id}', 'delete');
 });
 
-Route::controller(CommentsController::class)->prefix('comments')->group(function () {
+Route::controller(CommentsController::class)->prefix('comments')->middleware('auth:api')->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'create');
     Route::put('/{id}', 'update');
