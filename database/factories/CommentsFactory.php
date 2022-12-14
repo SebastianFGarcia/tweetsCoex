@@ -2,7 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Tweet;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comments>
@@ -18,6 +21,10 @@ class CommentsFactory extends Factory
     {
         return [
             //
+            'description' => fake()->text(),
+            'user_id' => User::all()->random()->id,
+            'tweets' => Tweet::all()->random()->id
+          
         ];
     }
 }
