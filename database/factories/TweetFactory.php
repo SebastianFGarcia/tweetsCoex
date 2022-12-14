@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +19,8 @@ class TweetFactory extends Factory
     {
         return [
             //
+            'description' => fake()->text(),
+            'user_id' => User::all()->randm()->id,
         ];
     }
 }
