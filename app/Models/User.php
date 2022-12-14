@@ -19,7 +19,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'lastname',
         'email',
+        'username',
         'password',
     ];
 
@@ -41,4 +43,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tweets(){
+        return $this->hasMany(Tweet::class);
+    }  
+    public function comments(){
+        return $this->hasMany(Comments::class);
+    }
 }
